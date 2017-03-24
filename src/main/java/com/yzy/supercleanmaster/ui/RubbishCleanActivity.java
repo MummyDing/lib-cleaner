@@ -127,7 +127,12 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
         mProgressBarText = (TextView) bindView(R.id.progressBarText);
         bottom_lin = (LinearLayout) bindView(R.id.bottom_lin);
         clearButton = (Button) bindView(R.id.clear_button);
-
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickClear();
+            }
+        });
     }
 
 
@@ -158,7 +163,7 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
         mListView.setOnItemClickListener(rublishMemoryAdapter);
         mListView.setOnScrollListener(new QuickReturnListViewOnScrollListener(QuickReturnType.FOOTER, null, 0, bottom_lin, footerHeight));
         bindService(new Intent(mContext, CleanerService.class),
-                mServiceConnection, Context.BIND_AUTO_CREATE);
+                mServiceConnection,Context.BIND_AUTO_CREATE);
     }
 
     @Override

@@ -65,15 +65,15 @@ public class SoftwareManageFragment extends BaseFragment {
     }
 
     private void initViews() {
-        bindView(listview, R.id.listview);
-        bindView(topText, R.id.topText);
-        bindView(mProgressBar, R.id.progressBar);
-        bindView(mProgressBarText, R.id.progressBarText);
+        listview = (ListView) bindView(R.id.listview);
+        topText = (TextView) bindView(R.id.topText);
+        mProgressBar = bindView(R.id.progressBar);
+        mProgressBarText = (TextView) bindView(R.id.progressBarText);
     }
 
 
-    private void bindView(View view, int id) {
-        view = mRootView.findViewById(id);
+    private View bindView(int id) {
+        return mRootView.findViewById(id);
     }
 
     @Override

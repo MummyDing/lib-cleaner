@@ -43,9 +43,6 @@ import com.yzy.supercleanmaster.widget.textcounter.formatters.DecimalFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.InjectView;
-import butterknife.OnClick;
-
 
 public class MemoryCleanActivity extends BaseSwipeBackActivity implements OnDismissCallback, CoreService.OnPeocessActionListener {
 
@@ -93,16 +90,17 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements OnDism
         }
     };
 
-    private void findViewsById() {
-        bindView(mListView, R.id.listview);
-        bindView(mwaveView, R.id.wave_view);
-        bindView(header, R.id.header);
-        bindView(textCounter, R.id.textCounter);
-        bindView(sufix, R.id.sufix);
-        bindView(bottom_lin, R.id.bottom_lin);
-        bindView(mProgressBar, R.id.progressBar);
-        bindView(mProgressBarText, R.id.progressBarText);
-        bindView(clearButton, R.id.clear_button);
+    private void initViews() {
+        mListView = (ListView) bindView(R.id.listview);
+        mwaveView = (WaveView) bindView(R.id.wave_view);
+        header = (RelativeLayout) bindView(R.id.header);
+        textCounter = (CounterView) bindView(R.id.textCounter);
+        sufix = (TextView) bindView(R.id.sufix);
+        bottom_lin = (LinearLayout) bindView(R.id.bottom_lin);
+        mProgressBar = bindView(R.id.progressBar);
+        mProgressBarText = (TextView) bindView(R.id.progressBarText);
+//        clearButton = (Button) bindView(R.id.clear_button);
+        clearButton =  (Button) findViewById(R.id.clear_button);
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,8 +110,8 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements OnDism
         });
     }
 
-    private void bindView(View view, int id) {
-        view = findViewById(id);
+    private View bindView(int id) {
+        return findViewById(id);
     }
 
     @Override
@@ -122,7 +120,7 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements OnDism
         setContentView(R.layout.activity_memory_clean);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         //  applyKitKatTranslucency();
-        findViewsById();
+        initViews();
         mClearMemoryAdapter = new ClearMemoryAdapter(mContext, mAppProcessInfos);
         mListView.setAdapter(mClearMemoryAdapter);
         bindService(new Intent(mContext, CoreService.class),

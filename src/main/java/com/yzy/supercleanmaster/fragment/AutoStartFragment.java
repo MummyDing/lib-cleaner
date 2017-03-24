@@ -72,14 +72,14 @@ public class AutoStartFragment extends BaseFragment {
     }
     
     private void findViewsById() {
-        bindView(listview, R.id.listview);
-        bindView(bottom_lin, R.id.bottom_lin);
-        bindView(disableButton, R.id.disable_button);
-        bindView(topText, R.id.topText);
+        listview = (ListView) bindView(R.id.listview);
+        bottom_lin = (LinearLayout) bindView(R.id.bottom_lin);
+        disableButton = (Button) bindView(R.id.disable_button);
+        topText = (TextView) bindView(R.id.topText);
     }
 
-    private void bindView(View view, int id) {
-        view = mRootView.findViewById(id);
+    private View bindView(int id) {
+        return mRootView.findViewById(id);
     }
 
     @Override

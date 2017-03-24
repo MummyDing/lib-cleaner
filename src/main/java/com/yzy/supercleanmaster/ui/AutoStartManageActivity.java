@@ -69,13 +69,13 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
     }
 
     private void initView() {
-        bindView(tabs, R.id.tabs);
-        bindView(pager, R.id.pagerFragmentTask);
+        tabs = (SlidingTab) bindView(R.id.tabs);
+        pager = (ViewPager) bindView(R.id.pagerFragmentTask);
     }
 
 
-    private void bindView(View view, int id) {
-        view = findViewById(id);
+    private View bindView(int id) {
+        return findViewById(id);
     }
 
     private void setTabsValue() {
