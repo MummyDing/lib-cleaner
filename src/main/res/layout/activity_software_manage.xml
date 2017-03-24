@@ -3,7 +3,8 @@
     android:id="@+id/layout_container1"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#3F51B5" >
     <com.yzy.supercleanmaster.views.SlidingTab
         android:id="@+id/tabs"
         android:layout_width="match_parent"
