@@ -9,10 +9,8 @@ import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
@@ -24,27 +22,26 @@ import android.widget.TextView;
 
 import com.etiennelawlor.quickreturn.library.enums.QuickReturnType;
 import com.etiennelawlor.quickreturn.library.listeners.QuickReturnListViewOnScrollListener;
-import com.john.waveview.WaveView;
-import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
-import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
+import com.github.mummyding.ymbase.waveview.WaveView;
 import com.yzy.supercleanmaster.R;
 import com.yzy.supercleanmaster.adapter.ClearMemoryAdapter;
-import com.yzy.supercleanmaster.base.BaseSwipeBackActivity;
-import com.yzy.supercleanmaster.bean.AppProcessInfo;
-import com.yzy.supercleanmaster.model.StorageSize;
+import com.github.mummyding.ymbase.BaseSwipeBackActivity;
+import com.github.mummyding.ymbase.bean.AppProcessInfo;
+import com.github.mummyding.ymbase.bean.StorageSize;
 import com.yzy.supercleanmaster.service.CoreService;
-import com.yzy.supercleanmaster.utils.StorageUtil;
-import com.yzy.supercleanmaster.utils.SystemBarTintManager;
-import com.yzy.supercleanmaster.utils.T;
-import com.yzy.supercleanmaster.utils.UIElementsHelper;
-import com.yzy.supercleanmaster.widget.textcounter.CounterView;
-import com.yzy.supercleanmaster.widget.textcounter.formatters.DecimalFormatter;
+import com.github.mummyding.ymbase.util.StorageUtil;
+import com.github.mummyding.ymbase.util.SystemBarTintManager;
+import com.github.mummyding.ymbase.util.T;
+import com.github.mummyding.ymbase.util.UIElementsHelper;
+import com.github.mummyding.ymbase.widget.textcounter.CounterView;
+import com.github.mummyding.ymbase.widget.textcounter.formatters.DecimalFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MemoryCleanActivity extends BaseSwipeBackActivity implements OnDismissCallback, CoreService.OnPeocessActionListener {
+
+public class MemoryCleanActivity extends BaseSwipeBackActivity implements CoreService.OnPeocessActionListener {
 
     ActionBar ab;
 
@@ -68,7 +65,6 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements OnDism
 
     Button clearButton;
     private static final int INITIAL_DELAY_MILLIS = 300;
-    SwingBottomInAnimationAdapter swingBottomInAnimationAdapter;
 
     private CoreService mCoreService;
 
@@ -79,7 +75,6 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements OnDism
             mCoreService.setOnActionListener(MemoryCleanActivity.this);
             mCoreService.scanRunProcess();
             //  updateStorageUsage();
-
 
         }
 
@@ -180,10 +175,6 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements OnDism
         win.setAttributes(winParams);
     }
 
-    @Override
-    public void onDismiss(@NonNull ViewGroup viewGroup, @NonNull int[] ints) {
-
-    }
 
     @Override
     public void onScanStarted(Context context) {

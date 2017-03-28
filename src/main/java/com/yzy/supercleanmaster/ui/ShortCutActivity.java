@@ -18,17 +18,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.base.BaseActivity;
-import com.yzy.supercleanmaster.bean.AppProcessInfo;
+import com.github.mummyding.ymbase.BaseActivity;
+import com.github.mummyding.ymbase.bean.AppProcessInfo;
 import com.yzy.supercleanmaster.service.CoreService;
-import com.yzy.supercleanmaster.utils.StorageUtil;
-import com.yzy.supercleanmaster.utils.SystemBarTintManager;
-import com.yzy.supercleanmaster.utils.T;
+import com.github.mummyding.ymbase.util.StorageUtil;
+import com.github.mummyding.ymbase.util.SystemBarTintManager;
+import com.github.mummyding.ymbase.util.T;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
-import butterknife.InjectView;
 
 
 public class ShortCutActivity extends BaseActivity implements CoreService.OnPeocessActionListener {

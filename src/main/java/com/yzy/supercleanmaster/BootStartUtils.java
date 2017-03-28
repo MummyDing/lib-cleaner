@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.yzy.supercleanmaster.utils;
+package com.yzy.supercleanmaster;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -22,6 +22,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+
 
 import com.yzy.supercleanmaster.model.AutoStartInfo;
 

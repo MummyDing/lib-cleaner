@@ -16,7 +16,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.bean.AppProcessInfo;
+import com.github.mummyding.ymbase.bean.AppProcessInfo;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

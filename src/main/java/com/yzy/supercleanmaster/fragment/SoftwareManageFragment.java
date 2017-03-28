@@ -20,16 +20,13 @@ import android.widget.TextView;
 
 import com.yzy.supercleanmaster.R;
 import com.yzy.supercleanmaster.adapter.SoftwareAdapter;
-import com.yzy.supercleanmaster.base.BaseFragment;
+import com.github.mummyding.ymbase.BaseFragment;
 import com.yzy.supercleanmaster.model.AppInfo;
-import com.yzy.supercleanmaster.utils.StorageUtil;
+import com.github.mummyding.ymbase.util.StorageUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 
 public class SoftwareManageFragment extends BaseFragment {
@@ -268,7 +265,6 @@ public class SoftwareManageFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
     }
 
 }

@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.yzy.supercleanmaster.R;
 import com.yzy.supercleanmaster.fragment.AutoStartFragment;
 import com.yzy.supercleanmaster.model.AutoStartInfo;
-import com.yzy.supercleanmaster.utils.ShellUtils;
-import com.yzy.supercleanmaster.utils.T;
+import com.github.mummyding.ymbase.util.ShellUtils;
+import com.github.mummyding.ymbase.util.T;
 
 import java.util.ArrayList;
 import java.util.List;

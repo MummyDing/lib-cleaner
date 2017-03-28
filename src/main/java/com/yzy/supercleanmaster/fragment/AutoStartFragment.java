@@ -15,19 +15,15 @@ import android.widget.TextView;
 
 import com.yzy.supercleanmaster.R;
 import com.yzy.supercleanmaster.adapter.AutoStartAdapter;
-import com.yzy.supercleanmaster.base.BaseFragment;
+import com.github.mummyding.ymbase.BaseFragment;
 import com.yzy.supercleanmaster.model.AutoStartInfo;
-import com.yzy.supercleanmaster.utils.BootStartUtils;
-import com.yzy.supercleanmaster.utils.RootUtil;
-import com.yzy.supercleanmaster.utils.ShellUtils;
-import com.yzy.supercleanmaster.utils.T;
+import com.yzy.supercleanmaster.BootStartUtils;
+import com.github.mummyding.ymbase.util.RootUtil;
+import com.github.mummyding.ymbase.util.ShellUtils;
+import com.github.mummyding.ymbase.util.T;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 
 
 public class AutoStartFragment extends BaseFragment {
@@ -206,7 +202,6 @@ public class AutoStartFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
     }
 
 }

@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_centerVertical="true">
 
-                <com.yzy.supercleanmaster.widget.circleprogress.ArcProgress
+                <com.github.mummyding.ymbase.widget.circleprogress.ArcProgress
                     android:id="@+id/arc_store"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
@@ -44,7 +44,7 @@
                     android:layout_marginBottom="55dip" />
             </RelativeLayout>
 
-            <com.yzy.supercleanmaster.widget.circleprogress.ArcProgress
+            <com.github.mummyding.ymbase.widget.circleprogress.ArcProgress
                 android:id="@+id/arc_process"
                 android:layout_width="100dp"
                 android:layout_marginLeft="15dip"

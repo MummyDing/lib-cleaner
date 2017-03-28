@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.bean.AppProcessInfo;
-import com.yzy.supercleanmaster.utils.StorageUtil;
+import com.github.mummyding.ymbase.bean.AppProcessInfo;
+import com.github.mummyding.ymbase.util.StorageUtil;
 
 import java.util.ArrayList;
 import java.util.List;

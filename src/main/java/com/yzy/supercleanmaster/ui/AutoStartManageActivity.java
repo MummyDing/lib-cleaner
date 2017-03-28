@@ -17,14 +17,13 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.base.BaseSwipeBackActivity;
+import com.github.mummyding.ymbase.BaseSwipeBackActivity;
 import com.yzy.supercleanmaster.fragment.AutoStartFragment;
 import com.yzy.supercleanmaster.fragment.WeakFragmentPagerAdapter;
-import com.yzy.supercleanmaster.utils.SystemBarTintManager;
-import com.yzy.supercleanmaster.utils.UIElementsHelper;
-import com.yzy.supercleanmaster.views.SlidingTab;
+import com.github.mummyding.ymbase.util.SystemBarTintManager;
+import com.github.mummyding.ymbase.util.UIElementsHelper;
+import com.github.mummyding.ymbase.view.SlidingTab;
 
-import butterknife.InjectView;
 
 
 public class AutoStartManageActivity extends BaseSwipeBackActivity {

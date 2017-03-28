@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.yzy.supercleanmaster.R;
 import com.yzy.supercleanmaster.model.AppInfo;
-import com.yzy.supercleanmaster.utils.StorageUtil;
-import com.yzy.supercleanmaster.views.RippleView;
+import com.github.mummyding.ymbase.util.StorageUtil;
+import com.github.mummyding.ymbase.view.RippleView;
 
 import java.util.ArrayList;
 import java.util.List;

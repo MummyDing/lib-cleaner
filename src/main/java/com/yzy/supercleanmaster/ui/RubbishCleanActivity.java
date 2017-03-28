@@ -31,21 +31,19 @@ import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationA
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
 import com.yzy.supercleanmaster.R;
 import com.yzy.supercleanmaster.adapter.RublishMemoryAdapter;
-import com.yzy.supercleanmaster.base.BaseSwipeBackActivity;
+import com.github.mummyding.ymbase.BaseSwipeBackActivity;
 import com.yzy.supercleanmaster.model.CacheListItem;
-import com.yzy.supercleanmaster.model.StorageSize;
+import com.github.mummyding.ymbase.bean.StorageSize;
 import com.yzy.supercleanmaster.service.CleanerService;
-import com.yzy.supercleanmaster.utils.StorageUtil;
-import com.yzy.supercleanmaster.utils.SystemBarTintManager;
-import com.yzy.supercleanmaster.utils.UIElementsHelper;
-import com.yzy.supercleanmaster.widget.textcounter.CounterView;
-import com.yzy.supercleanmaster.widget.textcounter.formatters.DecimalFormatter;
+import com.github.mummyding.ymbase.util.StorageUtil;
+import com.github.mummyding.ymbase.util.SystemBarTintManager;
+import com.github.mummyding.ymbase.util.UIElementsHelper;
+import com.github.mummyding.ymbase.widget.textcounter.CounterView;
+import com.github.mummyding.ymbase.widget.textcounter.formatters.DecimalFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.InjectView;
-import butterknife.OnClick;
 
 
 public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDismissCallback, CleanerService.OnActionListener {
