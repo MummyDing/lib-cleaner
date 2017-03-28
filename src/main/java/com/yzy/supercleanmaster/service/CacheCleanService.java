@@ -20,7 +20,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.model.CacheListItem;
+import com.yzy.supercleanmaster.model.CacheListItemModel;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -28,11 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class CleanerService extends Service {
+public class CacheCleanService extends Service {
 
     public static final String ACTION_CLEAN_AND_EXIT = "com.yzy.cache.cleaner.CLEAN_AND_EXIT";
 
-    private static final String TAG = "CleanerService";
+    private static final String TAG = "CacheCleanService";
 
     private Method mGetPackageSizeInfoMethod, mFreeStorageAndNotifyMethod;
     private OnActionListener mOnActionListener;
@@ -45,7 +45,7 @@ public class CleanerService extends Service {
 
         public void onScanProgressUpdated(Context context, int current, int max);
 
-        public void onScanCompleted(Context context, List<CacheListItem> apps);
+        public void onScanCompleted(Context context, List<CacheListItemModel> apps);
 
         public void onCleanStarted(Context context);
 
@@ -54,26 +54,26 @@ public class CleanerService extends Service {
 
     public class CleanerServiceBinder extends Binder {
 
-        public CleanerService getService() {
-            return CleanerService.this;
+        public CacheCleanService getService() {
+            return CacheCleanService.this;
         }
     }
 
     private CleanerServiceBinder mBinder = new CleanerServiceBinder();
 
-    private class TaskScan extends AsyncTask<Void, Integer, List<CacheListItem>> {
+    private class TaskScan extends AsyncTask<Void, Integer, List<CacheListItemModel>> {
 
         private int mAppCount = 0;
 
         @Override
         protected void onPreExecute() {
             if (mOnActionListener != null) {
-                mOnActionListener.onScanStarted(CleanerService.this);
+                mOnActionListener.onScanStarted(CacheCleanService.this);
             }
         }
 
         @Override
-        protected List<CacheListItem> doInBackground(Void... params) {
+        protected List<CacheListItemModel> doInBackground(Void... params) {
             mCacheSize = 0;
 
             final List<ApplicationInfo> packages = getPackageManager().getInstalledApplications(
@@ -83,7 +83,7 @@ public class CleanerService extends Service {
 
             final CountDownLatch countDownLatch = new CountDownLatch(packages.size());
 
-            final List<CacheListItem> apps = new ArrayList<CacheListItem>();
+            final List<CacheListItemModel> apps = new ArrayList<CacheListItemModel>();
 
             try {
                 for (ApplicationInfo pkg : packages) {
@@ -98,7 +98,7 @@ public class CleanerService extends Service {
 
                                         if (succeeded && pStats.cacheSize > 0) {
                                             try {
-                                                apps.add(new CacheListItem(pStats.packageName,
+                                                apps.add(new CacheListItemModel(pStats.packageName,
                                                         getPackageManager().getApplicationLabel(
                                                                 getPackageManager().getApplicationInfo(
                                                                         pStats.packageName,
@@ -135,14 +135,14 @@ public class CleanerService extends Service {
         @Override
         protected void onProgressUpdate(Integer... values) {
             if (mOnActionListener != null) {
-                mOnActionListener.onScanProgressUpdated(CleanerService.this, values[0], values[1]);
+                mOnActionListener.onScanProgressUpdated(CacheCleanService.this, values[0], values[1]);
             }
         }
 
         @Override
-        protected void onPostExecute(List<CacheListItem> result) {
+        protected void onPostExecute(List<CacheListItemModel> result) {
             if (mOnActionListener != null) {
-                mOnActionListener.onScanCompleted(CleanerService.this, result);
+                mOnActionListener.onScanCompleted(CacheCleanService.this, result);
             }
 
             mIsScanning = false;
@@ -154,7 +154,7 @@ public class CleanerService extends Service {
         @Override
         protected void onPreExecute() {
             if (mOnActionListener != null) {
-                mOnActionListener.onCleanStarted(CleanerService.this);
+                mOnActionListener.onCleanStarted(CacheCleanService.this);
             }
         }
 
@@ -189,7 +189,7 @@ public class CleanerService extends Service {
             mCacheSize = 0;
 
             if (mOnActionListener != null) {
-                mOnActionListener.onCleanCompleted(CleanerService.this, result);
+                mOnActionListener.onCleanCompleted(CacheCleanService.this, result);
             }
 
             mIsCleaning = false;
@@ -232,7 +232,7 @@ public class CleanerService extends Service {
                     }
 
                     @Override
-                    public void onScanCompleted(Context context, List<CacheListItem> apps) {
+                    public void onScanCompleted(Context context, List<CacheListItemModel> apps) {
                         if (getCacheSize() > 0) {
                             cleanCache();
                         }
@@ -246,11 +246,11 @@ public class CleanerService extends Service {
                     @Override
                     public void onCleanCompleted(Context context, long cacheSize) {
                         String msg = getString(R.string.cleaned, Formatter.formatShortFileSize(
-                                CleanerService.this, cacheSize));
+                                CacheCleanService.this, cacheSize));
 
                         Log.d(TAG, msg);
 
-                        Toast.makeText(CleanerService.this, msg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(CacheCleanService.this, msg, Toast.LENGTH_LONG).show();
 
                         new Handler().postDelayed(new Runnable() {
                             @Override

@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.yzy.supercleanmaster.R;
 import com.yzy.supercleanmaster.adapter.AutoStartAdapter;
-import com.github.mummyding.ymbase.BaseFragment;
+import com.github.mummyding.ymbase.base.BaseFragment;
 import com.yzy.supercleanmaster.model.AutoStartInfo;
 import com.yzy.supercleanmaster.BootStartUtils;
 import com.github.mummyding.ymbase.util.RootUtil;
@@ -54,7 +54,6 @@ public class AutoStartFragment extends BaseFragment {
             switch (msg.what) {
                 case REFRESH_BT:
                     refeshButoom();
-
                     break;
             }
         }
@@ -66,7 +65,7 @@ public class AutoStartFragment extends BaseFragment {
 
         position = getArguments().getInt(ARG_POSITION);
     }
-    
+
     private void findViewsById() {
         listview = (ListView) bindView(R.id.listview);
         bottom_lin = (LinearLayout) bindView(R.id.bottom_lin);
@@ -98,8 +97,8 @@ public class AutoStartFragment extends BaseFragment {
     }
 
     public void onClickDisable() {
-      RootUtil.preparezlsu(mContext);
-       disableAPP();
+        RootUtil.preparezlsu(mContext);
+        disableAPP();
     }
 
     private void init() {
@@ -152,7 +151,7 @@ public class AutoStartFragment extends BaseFragment {
 
         }
 
-        List<AutoStartInfo> mAutoStartInfo = BootStartUtils.fetchAutoApps(mContext);
+        List<AutoStartInfo> mAutoStartInfo = BootStartUtils.fetchStartAutoApps(mContext);
 
         //   List<AutoStartInfo> mAutoStartInfo = BootStartUtils.fetchInstalledApps(mContext);
         noSystemAuto = new ArrayList<>();
@@ -160,7 +159,6 @@ public class AutoStartFragment extends BaseFragment {
 
         for (AutoStartInfo a : mAutoStartInfo) {
             if (a.isSystem()) {
-
                 isSystemAuto.add(a);
             } else {
                 noSystemAuto.add(a);
@@ -172,13 +170,9 @@ public class AutoStartFragment extends BaseFragment {
             listview.setAdapter(mAutoStartAdapter);
             refeshButoom();
         } else {
-
             mAutoStartAdapter = new AutoStartAdapter(mContext, isSystemAuto, null);
             listview.setAdapter(mAutoStartAdapter);
-
         }
-
-
     }
 
     private void refeshButoom() {

@@ -25,16 +25,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.etiennelawlor.quickreturn.library.enums.QuickReturnType;
-import com.etiennelawlor.quickreturn.library.listeners.QuickReturnListViewOnScrollListener;
+import com.github.mummyding.ymbase.QuickReturnType;
+import com.github.mummyding.ymbase.QuickReturnListViewOnScrollListener;
+import com.githang.statusbar.StatusBarCompat;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
 import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.adapter.RublishMemoryAdapter;
-import com.github.mummyding.ymbase.BaseSwipeBackActivity;
-import com.yzy.supercleanmaster.model.CacheListItem;
-import com.github.mummyding.ymbase.bean.StorageSize;
-import com.yzy.supercleanmaster.service.CleanerService;
+import com.yzy.supercleanmaster.adapter.CacheCleanAdapter;
+import com.github.mummyding.ymbase.base.BaseSwipeBackActivity;
+import com.yzy.supercleanmaster.model.CacheListItemModel;
+import com.github.mummyding.ymbase.model.StorageSize;
+import com.yzy.supercleanmaster.service.CacheCleanService;
 import com.github.mummyding.ymbase.util.StorageUtil;
 import com.github.mummyding.ymbase.util.SystemBarTintManager;
 import com.github.mummyding.ymbase.util.UIElementsHelper;
@@ -46,7 +47,7 @@ import java.util.List;
 
 
 
-public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDismissCallback, CleanerService.OnActionListener {
+public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismissCallback, CacheCleanService.OnActionListener {
 
     ActionBar ab;
     protected static final int SCANING = 5;
@@ -62,7 +63,7 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
     int pprocess = 0;
 
 
-    private CleanerService mCleanerService;
+    private CacheCleanService mCleanerService;
 
     private boolean mAlreadyScanned = false;
     private boolean mAlreadyCleaned = false;
@@ -80,9 +81,9 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
     View mProgressBar;
     TextView mProgressBarText;
 
-    RublishMemoryAdapter rublishMemoryAdapter;
+    CacheCleanAdapter cacheCleanAdapter;
 
-    List<CacheListItem> mCacheListItem = new ArrayList<>();
+    List<CacheListItemModel> mCacheListItemModel = new ArrayList<>();
 
     LinearLayout bottom_lin;
 
@@ -91,8 +92,8 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            mCleanerService = ((CleanerService.CleanerServiceBinder) service).getService();
-            mCleanerService.setOnActionListener(RubbishCleanActivity.this);
+            mCleanerService = ((CacheCleanService.CleanerServiceBinder) service).getService();
+            mCleanerService.setOnActionListener(CacheCleanActivity.this);
 
             //  updateStorageUsage();
 
@@ -145,8 +146,9 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rublish_clean);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.title_bg), true);
         initView();
-        //     applyKitKatTranslucency();
+             applyKitKatTranslucency();
 
 //        StikkyHeaderBuilder.stickTo(mListView).setHeader(header)
 //                .minHeightHeaderPixel(0).build();
@@ -156,11 +158,11 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
         int footerHeight = mContext.getResources().getDimensionPixelSize(R.dimen.footer_height);
 
         mListView.setEmptyView(mEmptyView);
-        rublishMemoryAdapter = new RublishMemoryAdapter(mContext, mCacheListItem);
-        mListView.setAdapter(rublishMemoryAdapter);
-        mListView.setOnItemClickListener(rublishMemoryAdapter);
+        cacheCleanAdapter = new CacheCleanAdapter(mContext, mCacheListItemModel);
+        mListView.setAdapter(cacheCleanAdapter);
+        mListView.setOnItemClickListener(cacheCleanAdapter);
         mListView.setOnScrollListener(new QuickReturnListViewOnScrollListener(QuickReturnType.FOOTER, null, 0, bottom_lin, footerHeight));
-        bindService(new Intent(mContext, CleanerService.class),
+        bindService(new Intent(mContext, CacheCleanService.class),
                 mServiceConnection,Context.BIND_AUTO_CREATE);
     }
 
@@ -192,11 +194,11 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
     }
 
     @Override
-    public void onScanCompleted(Context context, List<CacheListItem> apps) {
+    public void onScanCompleted(Context context, List<CacheListItemModel> apps) {
         showProgressBar(false);
-        mCacheListItem.clear();
-        mCacheListItem.addAll(apps);
-        rublishMemoryAdapter.notifyDataSetChanged();
+        mCacheListItemModel.clear();
+        mCacheListItemModel.addAll(apps);
+        cacheCleanAdapter.notifyDataSetChanged();
         header.setVisibility(View.GONE);
         if (apps.size() > 0) {
             header.setVisibility(View.VISIBLE);
@@ -234,7 +236,7 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
             showProgressBar(false);
         }
 
-        if (!RubbishCleanActivity.this.isFinishing()) {
+        if (!CacheCleanActivity.this.isFinishing()) {
             showDialogLoading();
         }
     }
@@ -246,8 +248,8 @@ public class RubbishCleanActivity extends BaseSwipeBackActivity implements OnDis
                 mContext, cacheSize)), Toast.LENGTH_LONG).show();
         header.setVisibility(View.GONE);
         bottom_lin.setVisibility(View.GONE);
-        mCacheListItem.clear();
-        rublishMemoryAdapter.notifyDataSetChanged();
+        mCacheListItemModel.clear();
+        cacheCleanAdapter.notifyDataSetChanged();
     }
 
 

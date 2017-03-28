@@ -20,15 +20,15 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.etiennelawlor.quickreturn.library.enums.QuickReturnType;
-import com.etiennelawlor.quickreturn.library.listeners.QuickReturnListViewOnScrollListener;
-import com.github.mummyding.ymbase.waveview.WaveView;
+import com.github.mummyding.ymbase.QuickReturnType;
+import com.github.mummyding.ymbase.QuickReturnListViewOnScrollListener;
+import com.github.mummyding.ymbase.view.waveview.WaveView;
 import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.adapter.ClearMemoryAdapter;
-import com.github.mummyding.ymbase.BaseSwipeBackActivity;
-import com.github.mummyding.ymbase.bean.AppProcessInfo;
-import com.github.mummyding.ymbase.bean.StorageSize;
-import com.yzy.supercleanmaster.service.CoreService;
+import com.yzy.supercleanmaster.adapter.MemoryCleanAdapter;
+import com.github.mummyding.ymbase.base.BaseSwipeBackActivity;
+import com.github.mummyding.ymbase.model.AppProcessInfo;
+import com.github.mummyding.ymbase.model.StorageSize;
+import com.yzy.supercleanmaster.service.MemoryCleanService;
 import com.github.mummyding.ymbase.util.StorageUtil;
 import com.github.mummyding.ymbase.util.SystemBarTintManager;
 import com.github.mummyding.ymbase.util.T;
@@ -41,18 +41,16 @@ import java.util.List;
 
 
 
-public class MemoryCleanActivity extends BaseSwipeBackActivity implements CoreService.OnPeocessActionListener {
+public class MemoryCleanActivity extends BaseSwipeBackActivity implements MemoryCleanService.OnPeocessActionListener {
 
     ActionBar ab;
 
     ListView mListView;
 
     WaveView mwaveView;
-
-
     RelativeLayout header;
     List<AppProcessInfo> mAppProcessInfos = new ArrayList<>();
-    ClearMemoryAdapter mClearMemoryAdapter;
+    MemoryCleanAdapter mMemoryCleanAdapter;
 
     CounterView textCounter;
     TextView sufix;
@@ -66,22 +64,22 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements CoreSe
     Button clearButton;
     private static final int INITIAL_DELAY_MILLIS = 300;
 
-    private CoreService mCoreService;
+    private MemoryCleanService mMemoryCleanService;
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            mCoreService = ((CoreService.ProcessServiceBinder) service).getService();
-            mCoreService.setOnActionListener(MemoryCleanActivity.this);
-            mCoreService.scanRunProcess();
+            mMemoryCleanService = ((MemoryCleanService.ProcessServiceBinder) service).getService();
+            mMemoryCleanService.setOnActionListener(MemoryCleanActivity.this);
+            mMemoryCleanService.scanRunProcess();
             //  updateStorageUsage();
 
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            mCoreService.setOnActionListener(null);
-            mCoreService = null;
+            mMemoryCleanService.setOnActionListener(null);
+            mMemoryCleanService = null;
         }
     };
 
@@ -116,9 +114,9 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements CoreSe
         getActionBar().setDisplayHomeAsUpEnabled(true);
         //  applyKitKatTranslucency();
         initViews();
-        mClearMemoryAdapter = new ClearMemoryAdapter(mContext, mAppProcessInfos);
-        mListView.setAdapter(mClearMemoryAdapter);
-        bindService(new Intent(mContext, CoreService.class),
+        mMemoryCleanAdapter = new MemoryCleanAdapter(mContext, mAppProcessInfos);
+        mListView.setAdapter(mMemoryCleanAdapter);
+        bindService(new Intent(mContext, MemoryCleanService.class),
                 mServiceConnection, Context.BIND_AUTO_CREATE);
         int footerHeight = mContext.getResources().getDimensionPixelSize(R.dimen.footer_height);
         mListView.setOnScrollListener(new QuickReturnListViewOnScrollListener(QuickReturnType.FOOTER, null, 0, bottom_lin, footerHeight));
@@ -202,7 +200,7 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements CoreSe
 
         refeshTextCounter();
 
-        mClearMemoryAdapter.notifyDataSetChanged();
+        mMemoryCleanAdapter.notifyDataSetChanged();
         showProgressBar(false);
 
 
@@ -215,10 +213,10 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements CoreSe
             header.setVisibility(View.GONE);
             bottom_lin.setVisibility(View.GONE);
         }
-//        mClearMemoryAdapter = new ClearMemoryAdapter(mContext,
-//                apps);  mClearMemoryAdapter = new ClearMemoryAdapter(mContext,
+//        mMemoryCleanAdapter = new MemoryCleanAdapter(mContext,
+//                apps);  mMemoryCleanAdapter = new MemoryCleanAdapter(mContext,
 //                apps);
-//        swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(new SwipeDismissAdapter(mClearMemoryAdapter, MemoryCleanActivity.this));
+//        swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(new SwipeDismissAdapter(mMemoryCleanAdapter, MemoryCleanActivity.this));
 //        swingBottomInAnimationAdapter.setAbsListView(mListView);
 //        assert swingBottomInAnimationAdapter.getViewAnimator() != null;
 //        swingBottomInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
@@ -257,9 +255,9 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements CoreSe
         for (int i = mAppProcessInfos.size() - 1; i >= 0; i--) {
             if (mAppProcessInfos.get(i).checked) {
                 killAppmemory += mAppProcessInfos.get(i).memory;
-                mCoreService.killBackgroundProcesses(mAppProcessInfos.get(i).processName);
+                mMemoryCleanService.killBackgroundProcesses(mAppProcessInfos.get(i).processName);
                 mAppProcessInfos.remove(mAppProcessInfos.get(i));
-                mClearMemoryAdapter.notifyDataSetChanged();
+                mMemoryCleanAdapter.notifyDataSetChanged();
             }
         }
         Allmemory = Allmemory - killAppmemory;

@@ -11,20 +11,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yzy.supercleanmaster.R;
-import com.github.mummyding.ymbase.bean.AppProcessInfo;
+import com.github.mummyding.ymbase.model.AppProcessInfo;
 import com.github.mummyding.ymbase.util.StorageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClearMemoryAdapter extends BaseAdapter {
+public class MemoryCleanAdapter extends BaseAdapter {
 
     public List<AppProcessInfo> mlistAppInfo;
     LayoutInflater infater = null;
     private Context mContext;
     public static List<Integer> clearIds;
 
-    public ClearMemoryAdapter(Context context, List<AppProcessInfo> apps) {
+    public MemoryCleanAdapter(Context context, List<AppProcessInfo> apps) {
         infater = LayoutInflater.from(context);
         mContext = context;
         clearIds = new ArrayList<Integer>();

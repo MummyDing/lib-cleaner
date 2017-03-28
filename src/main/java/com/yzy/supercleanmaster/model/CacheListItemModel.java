@@ -2,13 +2,13 @@ package com.yzy.supercleanmaster.model;
 
 import android.graphics.drawable.Drawable;
 
-public class CacheListItem {
+public class CacheListItemModel {
 
     private long mCacheSize;
     private String mPackageName, mApplicationName;
     private Drawable mIcon;
 
-    public CacheListItem(String packageName, String applicationName, Drawable icon, long cacheSize) {
+    public CacheListItemModel(String packageName, String applicationName, Drawable icon, long cacheSize) {
         mCacheSize = cacheSize;
         mPackageName = packageName;
         mApplicationName = applicationName;

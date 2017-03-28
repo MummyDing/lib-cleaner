@@ -21,7 +21,7 @@
             android:background="@color/title_bg"
             android:orientation="vertical">
 
-            <com.github.mummyding.ymbase.waveview.WaveView
+            <com.github.mummyding.ymbase.view.waveview.WaveView
                 android:visibility="gone"
                 android:id="@+id/wave_view"
                 android:layout_width="match_parent"

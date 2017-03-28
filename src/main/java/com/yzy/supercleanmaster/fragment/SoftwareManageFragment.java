@@ -1,5 +1,6 @@
 package com.yzy.supercleanmaster.fragment;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageStatsObserver;
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
@@ -19,8 +21,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.adapter.SoftwareAdapter;
-import com.github.mummyding.ymbase.BaseFragment;
+import com.yzy.supercleanmaster.adapter.SoftwareManageAdapter;
+import com.github.mummyding.ymbase.base.BaseFragment;
 import com.yzy.supercleanmaster.model.AppInfo;
 import com.github.mummyding.ymbase.util.StorageUtil;
 
@@ -36,7 +38,7 @@ public class SoftwareManageFragment extends BaseFragment {
     public static final int REFRESH_BT = 111;
     private static final String ARG_POSITION = "position";
     private int position; // 0:应用软件，2 系统软件
-    SoftwareAdapter mAutoStartAdapter;
+    SoftwareManageAdapter mAutoStartAdapter;
 
     ListView listview;
 
@@ -48,7 +50,7 @@ public class SoftwareManageFragment extends BaseFragment {
 
     private Method mGetPackageSizeInfoMethod;
 
-    AsyncTask<Void, Integer, List<AppInfo>> task;
+    AsyncTask<Void, Integer, List<AppInfo>> mFetchInstalledAppsTask;
     private View mRootView;
 
 
@@ -109,9 +111,10 @@ public class SoftwareManageFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        task.cancel(true);
+        mFetchInstalledAppsTask.cancel(true);
     }
 
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
     private void fillData() {
 
         if (position == 0) {
@@ -119,11 +122,10 @@ public class SoftwareManageFragment extends BaseFragment {
 
         } else {
             topText.setText("卸载下列软件，会影响正常使用");
-
         }
 
 
-        task = new AsyncTask<Void, Integer, List<AppInfo>>() {
+        mFetchInstalledAppsTask = new AsyncTask<Void, Integer, List<AppInfo>>() {
             private int mAppCount = 0;
 
             @Override
@@ -227,12 +229,12 @@ public class SoftwareManageFragment extends BaseFragment {
                     }
                     if (position == 0) {
                         topText.setText(getString(R.string.software_top_text, userAppInfos.size(), StorageUtil.convertStorage(allSize)));
-                        mAutoStartAdapter = new SoftwareAdapter(mContext, userAppInfos);
+                        mAutoStartAdapter = new SoftwareManageAdapter(mContext, userAppInfos);
                         listview.setAdapter(mAutoStartAdapter);
 
                     } else {
 
-                        mAutoStartAdapter = new SoftwareAdapter(mContext, systemAppInfos);
+                        mAutoStartAdapter = new SoftwareManageAdapter(mContext, systemAppInfos);
                         listview.setAdapter(mAutoStartAdapter);
 
                     }
@@ -242,7 +244,7 @@ public class SoftwareManageFragment extends BaseFragment {
             }
 
         };
-        task.execute();
+        mFetchInstalledAppsTask.execute();
 
 
     }

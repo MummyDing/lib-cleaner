@@ -70,7 +70,7 @@
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".ui.RubbishCleanActivity"
+            android:name=".ui.CacheCleanActivity"
             android:label="@string/app_rublish_clean"
             android:theme="@style/MyTranslucentAppTheme"></activity>
 
@@ -96,10 +96,10 @@
             android:theme="@style/MyTranslucentAppTheme"></activity>
 
         <service
-            android:name=".service.CleanerService"
+            android:name=".service.CacheCleanService"
             android:exported="false" />
         <service
-            android:name=".service.CoreService"
+            android:name=".service.MemoryCleanService"
             android:exported="false" />
 
         <receiver android:name=".receiver.BootCompleteReceiver">

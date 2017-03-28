@@ -16,17 +16,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.yzy.supercleanmaster.R;
-import com.github.mummyding.ymbase.bean.AppProcessInfo;
+import com.github.mummyding.ymbase.model.AppProcessInfo;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoreService extends Service {
+public class MemoryCleanService extends Service {
 
     public static final String ACTION_CLEAN_AND_EXIT = "com.yzy.service.cleaner.CLEAN_AND_EXIT";
 
-    private static final String TAG = "CleanerService";
+    private static final String TAG = "CacheCleanService";
 
 
     private OnPeocessActionListener mOnActionListener;
@@ -53,8 +53,8 @@ public class CoreService extends Service {
 
     public class ProcessServiceBinder extends Binder {
 
-        public CoreService getService() {
-            return CoreService.this;
+        public MemoryCleanService getService() {
+            return MemoryCleanService.this;
         }
     }
 
@@ -114,11 +114,11 @@ public class CoreService extends Service {
                     @Override
                     public void onCleanCompleted(Context context, long cacheSize) {
                         String msg = getString(R.string.cleaned, Formatter.formatShortFileSize(
-                                CoreService.this, cacheSize));
+                                MemoryCleanService.this, cacheSize));
 
                         Log.d(TAG, msg);
 
-                        Toast.makeText(CoreService.this, msg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(MemoryCleanService.this, msg, Toast.LENGTH_LONG).show();
 
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -144,7 +144,7 @@ public class CoreService extends Service {
         @Override
         protected void onPreExecute() {
             if (mOnActionListener != null) {
-                mOnActionListener.onScanStarted(CoreService.this);
+                mOnActionListener.onScanStarted(MemoryCleanService.this);
             }
         }
 
@@ -187,11 +187,11 @@ public class CoreService extends Service {
                         if (appInfo != null) {
                             Drawable icon = appInfo.loadIcon(packageManager);
                             abAppProcessInfo.icon = icon;
-                        }else{
+                        } else {
                             abAppProcessInfo.icon = mContext.getResources().getDrawable(R.drawable.ic_launcher);
                         }
 
-                    }else{
+                    } else {
                         abAppProcessInfo.icon = mContext.getResources().getDrawable(R.drawable.ic_launcher);
                     }
                     abAppProcessInfo.isSystem = true;
@@ -212,14 +212,14 @@ public class CoreService extends Service {
         @Override
         protected void onProgressUpdate(Integer... values) {
             if (mOnActionListener != null) {
-                mOnActionListener.onScanProgressUpdated(CoreService.this, values[0], values[1]);
+                mOnActionListener.onScanProgressUpdated(MemoryCleanService.this, values[0], values[1]);
             }
         }
 
         @Override
         protected void onPostExecute(List<AppProcessInfo> result) {
             if (mOnActionListener != null) {
-                mOnActionListener.onScanCompleted(CoreService.this, result);
+                mOnActionListener.onScanCompleted(MemoryCleanService.this, result);
             }
 
             mIsScanning = false;
@@ -263,7 +263,7 @@ public class CoreService extends Service {
         @Override
         protected void onPreExecute() {
             if (mOnActionListener != null) {
-                mOnActionListener.onCleanStarted(CoreService.this);
+                mOnActionListener.onCleanStarted(MemoryCleanService.this);
             }
         }
 
@@ -289,7 +289,7 @@ public class CoreService extends Service {
 
 
             if (mOnActionListener != null) {
-                mOnActionListener.onCleanCompleted(CoreService.this, result);
+                mOnActionListener.onCleanCompleted(MemoryCleanService.this, result);
             }
 
 
@@ -316,7 +316,7 @@ public class CoreService extends Service {
         mOnActionListener = listener;
     }
 
-    public ApplicationInfo getApplicationInfo( String processName) {
+    public ApplicationInfo getApplicationInfo(String processName) {
         if (processName == null) {
             return null;
         }

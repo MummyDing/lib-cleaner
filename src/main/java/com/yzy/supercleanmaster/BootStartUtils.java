@@ -27,7 +27,6 @@ import android.graphics.drawable.Drawable;
 import com.yzy.supercleanmaster.model.AutoStartInfo;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -42,48 +41,7 @@ public class BootStartUtils {
         //   mContext = context;
     }
 
-    /**
-     * 　　      * 获取Android开机启动列表
-     */
-
-
-    public static List<AutoStartInfo> fetchInstalledApps(Context mContext) {
-        PackageManager pm = mContext.getPackageManager();
-        List<ApplicationInfo> appInfo = pm.getInstalledApplications(0);
-        Iterator<ApplicationInfo> appInfoIterator = appInfo.iterator();
-        List<AutoStartInfo> appList = new ArrayList<AutoStartInfo>(appInfo.size());
-
-        while (appInfoIterator.hasNext()) {
-            ApplicationInfo app = appInfoIterator.next();
-            int flag = pm.checkPermission(
-                    BOOT_START_PERMISSION, app.packageName);
-            if (flag == PackageManager.PERMISSION_GRANTED) {
-                AutoStartInfo appMap = new AutoStartInfo();
-                String label = pm.getApplicationLabel(app).toString();
-                Drawable icon = pm.getApplicationIcon(app);
-                String packageName = app.packageName;
-                if ((app.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
-                    appMap.setSystem(true);
-                    //abAppProcessInfo.isSystem = true;
-                } else {
-                    appMap.setSystem(false);
-                    // abAppProcessInfo.isSystem = false;
-                }
-
-                //  appMap.setDesc(desc);
-                appMap.setIcon(icon);
-                appMap.setPackageName(packageName);
-                appMap.setLabel(label);
-
-
-                appList.add(appMap);
-            }
-        }
-        return appList;
-    }
-
-
-    public static List<AutoStartInfo> fetchAutoApps(Context mContext) {
+    public static List<AutoStartInfo> fetchStartAutoApps(Context mContext) {
         PackageManager pm = mContext.getPackageManager();
         Intent intent = new Intent(Intent.ACTION_BOOT_COMPLETED);
         List<ResolveInfo> resolveInfoList = pm.queryBroadcastReceivers(intent, PackageManager.GET_DISABLED_COMPONENTS);
@@ -150,38 +108,7 @@ public class BootStartUtils {
             mAutoStartInfo.setIcon(icon);
             mAutoStartInfo.setPackageReceiver(packageReceiver);
             appList.add(mAutoStartInfo);
-
         }
-
-
-//        for (ResolveInfo resolveInfo : resolveInfoList) {
-//
-//
-//            ComponentName mComponentName = new ComponentName(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name);
-//
-//
-//            if (pm.getComponentEnabledSetting(mComponentName) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
-//
-//
-//                as.setEnable(false);
-//            } else {
-//                as.setEnable(true);
-//            }
-//
-//            if ((resolveInfo.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
-//                as.setSystem(true);
-//            } else {
-//                as.setSystem(false);
-//            }
-//            as.setIcon(resolveInfo.loadIcon(pm));
-//            as.setPackageName(resolveInfo.activityInfo.packageName);
-//            as.setLabel(resolveInfo.loadLabel(pm).toString());
-//            appList.add(as);
-
-        //   Log.i("yzy", "COMPONENT_ENABLED_STATE:" + pm.getComponentEnabledSetting(mComponentName) + "\tpackageName:" + resolveInfo.activityInfo.packageName);
-
-        //}
-
         return appList;
     }
 }

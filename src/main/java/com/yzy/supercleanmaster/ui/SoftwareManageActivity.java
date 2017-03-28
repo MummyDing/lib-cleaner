@@ -17,7 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.yzy.supercleanmaster.R;
-import com.github.mummyding.ymbase.BaseSwipeBackActivity;
+import com.github.mummyding.ymbase.base.BaseSwipeBackActivity;
 import com.yzy.supercleanmaster.fragment.SoftwareManageFragment;
 import com.yzy.supercleanmaster.fragment.WeakFragmentPagerAdapter;
 import com.github.mummyding.ymbase.util.SystemBarTintManager;
@@ -38,7 +38,7 @@ public class SoftwareManageActivity extends BaseSwipeBackActivity {
 
     ViewPager pager;
 
-    private MyPagerAdapter adapter;
+    private SoftwareManagePagerAdapter adapter;
 
 
     @Override
@@ -53,7 +53,7 @@ public class SoftwareManageActivity extends BaseSwipeBackActivity {
 
 
         res = getResources();
-        adapter = new MyPagerAdapter(getSupportFragmentManager());
+        adapter = new SoftwareManagePagerAdapter(getSupportFragmentManager());
 
         pager.setAdapter(adapter);
 
@@ -139,11 +139,11 @@ public class SoftwareManageActivity extends BaseSwipeBackActivity {
     }
 
 
-    public class MyPagerAdapter extends WeakFragmentPagerAdapter {
+    public class SoftwareManagePagerAdapter extends WeakFragmentPagerAdapter {
 
         private final String[] TITLES = {"用户软件", "预装软件"};
 
-        public MyPagerAdapter(FragmentManager fm) {
+        public SoftwareManagePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -166,7 +166,6 @@ public class SoftwareManageActivity extends BaseSwipeBackActivity {
             bundle.putInt("position", position);
             fragment.setArguments(bundle);
             saveFragment(fragment);
-
             return fragment;
 
         }

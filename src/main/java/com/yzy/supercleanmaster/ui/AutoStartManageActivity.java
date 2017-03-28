@@ -17,7 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.yzy.supercleanmaster.R;
-import com.github.mummyding.ymbase.BaseSwipeBackActivity;
+import com.github.mummyding.ymbase.base.BaseSwipeBackActivity;
 import com.yzy.supercleanmaster.fragment.AutoStartFragment;
 import com.yzy.supercleanmaster.fragment.WeakFragmentPagerAdapter;
 import com.github.mummyding.ymbase.util.SystemBarTintManager;
@@ -38,7 +38,7 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
 
     ViewPager pager;
 
-    private MyPagerAdapter adapter;
+    private AutoStartPagerAdapter adapter;
 
 
     @Override
@@ -53,7 +53,7 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
 
 
         res = getResources();
-        adapter = new MyPagerAdapter(getSupportFragmentManager());
+        adapter = new AutoStartPagerAdapter(getSupportFragmentManager());
 
         pager.setAdapter(adapter);
 
@@ -139,11 +139,11 @@ public class AutoStartManageActivity extends BaseSwipeBackActivity {
     }
 
 
-    public class MyPagerAdapter extends WeakFragmentPagerAdapter {
+    public class AutoStartPagerAdapter extends WeakFragmentPagerAdapter {
 
         private final String[] TITLES = {"普通软件", "系统核心软件"};
 
-        public MyPagerAdapter(FragmentManager fm) {
+        public AutoStartPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

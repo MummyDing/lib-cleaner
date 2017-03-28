@@ -18,9 +18,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.yzy.supercleanmaster.R;
-import com.github.mummyding.ymbase.BaseActivity;
-import com.github.mummyding.ymbase.bean.AppProcessInfo;
-import com.yzy.supercleanmaster.service.CoreService;
+import com.github.mummyding.ymbase.base.BaseActivity;
+import com.github.mummyding.ymbase.model.AppProcessInfo;
+import com.yzy.supercleanmaster.service.MemoryCleanService;
 import com.github.mummyding.ymbase.util.StorageUtil;
 import com.github.mummyding.ymbase.util.SystemBarTintManager;
 import com.github.mummyding.ymbase.util.T;
@@ -30,7 +30,7 @@ import java.util.List;
 
 
 
-public class ShortCutActivity extends BaseActivity implements CoreService.OnPeocessActionListener {
+public class ShortCutActivity extends BaseActivity implements MemoryCleanService.OnPeocessActionListener {
 
     RelativeLayout layoutAnim;
 
@@ -40,14 +40,14 @@ public class ShortCutActivity extends BaseActivity implements CoreService.OnPeoc
     ImageView cleanLightImg;
 
 
-    private CoreService mCoreService;
+    private MemoryCleanService mMemoryCleanService;
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            mCoreService = ((CoreService.ProcessServiceBinder) service).getService();
-            mCoreService.setOnActionListener(ShortCutActivity.this);
-            mCoreService.cleanAllProcess();
+            mMemoryCleanService = ((MemoryCleanService.ProcessServiceBinder) service).getService();
+            mMemoryCleanService.setOnActionListener(ShortCutActivity.this);
+            mMemoryCleanService.cleanAllProcess();
             //  updateStorageUsage();
 
 
@@ -55,8 +55,8 @@ public class ShortCutActivity extends BaseActivity implements CoreService.OnPeoc
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            mCoreService.setOnActionListener(null);
-            mCoreService = null;
+            mMemoryCleanService.setOnActionListener(null);
+            mMemoryCleanService = null;
         }
     };
 
@@ -128,7 +128,7 @@ public class ShortCutActivity extends BaseActivity implements CoreService.OnPeoc
         }
         cleanLightImg.startAnimation(AnimationUtils.loadAnimation(this,
                 R.anim.rotate_anim));
-        bindService(new Intent(mContext, CoreService.class),
+        bindService(new Intent(mContext, MemoryCleanService.class),
                 mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
