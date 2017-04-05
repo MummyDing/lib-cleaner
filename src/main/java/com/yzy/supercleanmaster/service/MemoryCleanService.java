@@ -1,5 +1,6 @@
 package com.yzy.supercleanmaster.service;
 
+import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
@@ -9,12 +10,14 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.jaredrummler.android.processes.AndroidProcesses;
 import com.yzy.supercleanmaster.R;
 import com.github.mummyding.ymbase.model.AppProcessInfo;
 
@@ -33,7 +36,7 @@ public class MemoryCleanService extends Service {
     private boolean mIsScanning = false;
     private boolean mIsCleaning = false;
 
-    ActivityManager activityManager = null;
+    ActivityManager mActivityManager = null;
     List<AppProcessInfo> list = null;
     PackageManager packageManager = null;
     Context mContext;
@@ -71,7 +74,7 @@ public class MemoryCleanService extends Service {
         mContext = getApplicationContext();
 
         try {
-            activityManager = (ActivityManager)
+            mActivityManager = (ActivityManager)
                     getSystemService(Context.ACTIVITY_SERVICE);
             packageManager = getApplicationContext()
                     .getPackageManager();
@@ -154,8 +157,8 @@ public class MemoryCleanService extends Service {
             ApplicationInfo appInfo = null;
             AppProcessInfo abAppProcessInfo = null;
 
-            List<ActivityManager.RunningAppProcessInfo> appProcessList = activityManager
-                    .getRunningAppProcesses();
+            List<ActivityManager.RunningAppProcessInfo> appProcessList =
+                    AndroidProcesses.getRunningAppProcessInfo(mContext);
             publishProgress(0, appProcessList.size());
 
             for (ActivityManager.RunningAppProcessInfo appProcessInfo : appProcessList) {
@@ -199,7 +202,7 @@ public class MemoryCleanService extends Service {
                 }
 
 
-                long memsize = activityManager.getProcessMemoryInfo(new int[]{appProcessInfo.pid})[0].getTotalPrivateDirty() * 1024;
+                long memsize = mActivityManager.getProcessMemoryInfo(new int[]{appProcessInfo.pid})[0].getTotalPrivateDirty() * 1024;
                 abAppProcessInfo.memory = memsize;
 
                 list.add(abAppProcessInfo);
@@ -233,9 +236,8 @@ public class MemoryCleanService extends Service {
     }
 
 
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public void killBackgroundProcesses(String processName) {
-        // mIsScanning = true;
-
         String packageName = null;
         try {
             if (processName.indexOf(":") == -1) {
@@ -243,18 +245,15 @@ public class MemoryCleanService extends Service {
             } else {
                 packageName = processName.split(":")[0];
             }
-
-            activityManager.killBackgroundProcesses(packageName);
-
+            mActivityManager.killBackgroundProcesses(packageName);
             //
-            Method forceStopPackage = activityManager.getClass()
+            Method forceStopPackage = mActivityManager.getClass()
                     .getDeclaredMethod("forceStopPackage", String.class);
             forceStopPackage.setAccessible(true);
-            forceStopPackage.invoke(activityManager, packageName);
+            forceStopPackage.invoke(mActivityManager, packageName);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -272,14 +271,14 @@ public class MemoryCleanService extends Service {
             long beforeMemory = 0;
             long endMemory = 0;
             ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
-            activityManager.getMemoryInfo(memoryInfo);
+            mActivityManager.getMemoryInfo(memoryInfo);
             beforeMemory = memoryInfo.availMem;
-            List<ActivityManager.RunningAppProcessInfo> appProcessList = activityManager
+            List<ActivityManager.RunningAppProcessInfo> appProcessList = mActivityManager
                     .getRunningAppProcesses();
             for (ActivityManager.RunningAppProcessInfo info : appProcessList) {
                 killBackgroundProcesses(info.processName);
             }
-            activityManager.getMemoryInfo(memoryInfo);
+            mActivityManager.getMemoryInfo(memoryInfo);
             endMemory = memoryInfo.availMem;
             return endMemory - beforeMemory;
         }
@@ -300,7 +299,7 @@ public class MemoryCleanService extends Service {
     public long getAvailMemory(Context context) {
         // 获取android当前可用内存大小
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
-        activityManager.getMemoryInfo(memoryInfo);
+        mActivityManager.getMemoryInfo(memoryInfo);
         // 当前系统可用内存 ,将获得的内存大小规格化
 
         return memoryInfo.availMem;

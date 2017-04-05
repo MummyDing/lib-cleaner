@@ -47,9 +47,8 @@ public class SoftwareManageActivity extends BaseSwipeBackActivity {
         setContentView(R.layout.activity_software_manage);
         initViews();
         getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getActionBar().setHomeButtonEnabled(true);
-      //  applyKitKatTranslucency();
+        getActionBar().setLogo(getResources().getDrawable(R.drawable.transparent));
+        //  applyKitKatTranslucency();
 
 
         res = getResources();
@@ -141,7 +140,7 @@ public class SoftwareManageActivity extends BaseSwipeBackActivity {
 
     public class SoftwareManagePagerAdapter extends WeakFragmentPagerAdapter {
 
-        private final String[] TITLES = {"用户软件", "预装软件"};
+        private final String[] TITLES = {"用户应用", "预装应用"};
 
         public SoftwareManagePagerAdapter(FragmentManager fm) {
             super(fm);

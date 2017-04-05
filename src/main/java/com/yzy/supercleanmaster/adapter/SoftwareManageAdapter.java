@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.mummyding.ymbase.util.AppUtil;
 import com.yzy.supercleanmaster.R;
 import com.yzy.supercleanmaster.model.AppInfo;
 import com.github.mummyding.ymbase.util.StorageUtil;
@@ -88,13 +89,7 @@ public class SoftwareManageAdapter extends BaseAdapter {
         holder.ripleUninstall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent();
-                intent.setAction("android.intent.action.VIEW");
-                intent.setAction("android.intent.action.DELETE");
-                intent.addCategory("android.intent.category.DEFAULT");
-                intent.setData(Uri.parse("package:" + item.getPackname()));
-                mContext.startActivity(intent);
+                AppUtil.uninstallApk(mContext, item.getPackname());
             }
         });
 

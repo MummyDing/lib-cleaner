@@ -146,6 +146,9 @@ public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rublish_clean);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setLogo(getResources().getDrawable(R.drawable.transparent));
+
+
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.title_bg), true);
         initView();
              applyKitKatTranslucency();

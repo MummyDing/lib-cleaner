@@ -112,6 +112,7 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements Memory
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory_clean);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setLogo(getResources().getDrawable(R.drawable.transparent));
         //  applyKitKatTranslucency();
         initViews();
         mMemoryCleanAdapter = new MemoryCleanAdapter(mContext, mAppProcessInfos);

@@ -111,7 +111,7 @@ public class AutoStartFragment extends BaseFragment {
     }
 
     private void disableAPP() {
-        List<String> mSring = new ArrayList<>();
+        List<String> string = new ArrayList<>();
         for (AutoStartInfo auto : noSystemAuto) {
             if (auto.isEnable()) {
                 String packageReceiverList[] = auto.getPackageReceiver().toString().split(";");
@@ -119,13 +119,11 @@ public class AutoStartFragment extends BaseFragment {
                     String cmd = "pm disable " + packageReceiverList[j];
                     //部分receiver包含$符号，需要做进一步处理，用"$"替换掉$
                     cmd = cmd.replace("$", "\"" + "$" + "\"");
-                    //执行命令
-                    mSring.add(cmd);
+                    string.add(cmd);
                 }
             }
         }
-
-        ShellUtils.CommandResult mCommandResult = ShellUtils.execCommand(mSring, true, true);
+        ShellUtils.CommandResult mCommandResult = ShellUtils.execCommand(string, true, true);
         if (mCommandResult.result == 0) {
             T.showLong(mContext, "应用已经全部禁止");
             for (AutoStartInfo auto : noSystemAuto) {
@@ -144,10 +142,10 @@ public class AutoStartFragment extends BaseFragment {
     private void fillData() {
 
         if (position == 0) {
-            topText.setText("禁止下列软件自启,可提升运行速度");
+            topText.setText("禁止下列应用自启,可提升运行速度");
 
         } else {
-            topText.setText("禁止系统核心软件自启,将会影响手机的正常使用,请谨慎操作");
+            topText.setText("禁止系统核心应用自启,将会影响手机的正常使用,请谨慎操作");
 
         }
 
