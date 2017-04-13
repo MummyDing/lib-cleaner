@@ -20,26 +20,26 @@ import java.util.List;
 
 public class CacheCleanAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
 
-    public List<CacheListItemModel> mlistAppInfo;
-    LayoutInflater infater = null;
+    private List<CacheListItemModel> mListAppInfo;
+    private LayoutInflater mInflater = null;
     private Context mContext;
-    public static List<Integer> clearIds;
+    private List<Integer> mClearIds;
 
     public CacheCleanAdapter(Context context, List<CacheListItemModel> apps) {
-        infater = LayoutInflater.from(context);
+        mInflater = LayoutInflater.from(context);
         mContext = context;
-        clearIds = new ArrayList<Integer>();
-        this.mlistAppInfo = apps;
+        mClearIds = new ArrayList<Integer>();
+        this.mListAppInfo = apps;
     }
 
     @Override
     public int getCount() {
-        return mlistAppInfo.size();
+        return mListAppInfo.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mlistAppInfo.get(position);
+        return mListAppInfo.get(position);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CacheCleanAdapter extends BaseAdapter implements AdapterView.OnItem
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = infater.inflate(R.layout.listview_rublish_clean,
+            convertView = mInflater.inflate(R.layout.listview_rublish_clean,
                     parent, false);
             holder = new ViewHolder();
             holder.appIcon = (ImageView) convertView
@@ -72,7 +72,6 @@ public class CacheCleanAdapter extends BaseAdapter implements AdapterView.OnItem
             holder.packageName = item.getPackageName();
         }
 
-
         return convertView;
     }
 
@@ -85,12 +84,11 @@ public class CacheCleanAdapter extends BaseAdapter implements AdapterView.OnItem
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             intent.setData(Uri.parse("package:" + viewHolder.packageName));
-
             mContext.startActivity(intent);
         }
     }
 
-    class ViewHolder {
+    private class ViewHolder {
         ImageView appIcon;
         TextView appName;
         TextView size;

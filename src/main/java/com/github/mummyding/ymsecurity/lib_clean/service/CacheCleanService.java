@@ -30,7 +30,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class CacheCleanService extends Service {
 
-    public static final String ACTION_CLEAN_AND_EXIT = "com.yzy.cache.cleaner.CLEAN_AND_EXIT";
+    public static final String ACTION_CLEAN_AND_EXIT = "com.github.mummyding.ymsecurity.lib_clean.cache.cleaner.CLEAN_AND_EXIT";
 
     private static final String TAG = "CacheCleanService";
 

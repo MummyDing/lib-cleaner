@@ -43,8 +43,6 @@ import java.util.List;
 
 public class MemoryCleanActivity extends BaseSwipeBackActivity implements MemoryCleanService.OnPeocessActionListener {
 
-    ActionBar ab;
-
     ListView mListView;
 
     WaveView mwaveView;
@@ -130,7 +128,6 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements Memory
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
@@ -198,7 +195,6 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements Memory
             }
         }
 
-
         refeshTextCounter();
 
         mMemoryCleanAdapter.notifyDataSetChanged();
@@ -214,17 +210,6 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements Memory
             header.setVisibility(View.GONE);
             bottom_lin.setVisibility(View.GONE);
         }
-//        mMemoryCleanAdapter = new MemoryCleanAdapter(mContext,
-//                apps);  mMemoryCleanAdapter = new MemoryCleanAdapter(mContext,
-//                apps);
-//        swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(new SwipeDismissAdapter(mMemoryCleanAdapter, MemoryCleanActivity.this));
-//        swingBottomInAnimationAdapter.setAbsListView(mListView);
-//        assert swingBottomInAnimationAdapter.getViewAnimator() != null;
-//        swingBottomInAnimationAdapter.getViewAnimator().setInitialDelayMillis(INITIAL_DELAY_MILLIS);
-//
-//        mListView.setAdapter(swingBottomInAnimationAdapter);
-        //clearMem.setText("200M");
-
 
     }
 
@@ -234,7 +219,6 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements Memory
         textCounter.setStartValue(0f);
         textCounter.setEndValue(mStorageSize.value);
         sufix.setText(mStorageSize.suffix);
-        //  textCounter.setSuffix(mStorageSize.suffix);
         textCounter.start();
     }
 
@@ -252,7 +236,6 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements Memory
     public void onClickClear() {
         long killAppmemory = 0;
 
-
         for (int i = mAppProcessInfos.size() - 1; i >= 0; i--) {
             if (mAppProcessInfos.get(i).checked) {
                 killAppmemory += mAppProcessInfos.get(i).memory;
@@ -266,7 +249,6 @@ public class MemoryCleanActivity extends BaseSwipeBackActivity implements Memory
         if (Allmemory > 0) {
             refeshTextCounter();
         }
-
 
     }
 

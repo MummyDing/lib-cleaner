@@ -46,21 +46,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismissCallback, CacheCleanService.OnActionListener {
 
-    ActionBar ab;
-    protected static final int SCANING = 5;
-
-    protected static final int SCAN_FINIFSH = 6;
-    protected static final int PROCESS_MAX = 8;
-    protected static final int PROCESS_PROCESS = 9;
-
-    private static final int INITIAL_DELAY_MILLIS = 300;
-    SwingBottomInAnimationAdapter swingBottomInAnimationAdapter;
-    Resources res;
-    int ptotal = 0;
-    int pprocess = 0;
+    private ActionBar ab;
+    private Resources res;
+    private int ptotal = 0;
+    private int pprocess = 0;
 
 
     private CacheCleanService mCleanerService;
@@ -68,26 +59,17 @@ public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismi
     private boolean mAlreadyScanned = false;
     private boolean mAlreadyCleaned = false;
 
-    ListView mListView;
-
-    TextView mEmptyView;
-
-    RelativeLayout header;
-
-
-    CounterView textCounter;
-    TextView sufix;
-
-    View mProgressBar;
-    TextView mProgressBarText;
-
-    CacheCleanAdapter cacheCleanAdapter;
-
-    List<CacheListItemModel> mCacheListItemModel = new ArrayList<>();
-
-    LinearLayout bottom_lin;
-
-    Button clearButton;
+    private ListView mListView;
+    private TextView mEmptyView;
+    private RelativeLayout header;
+    private CounterView textCounter;
+    private TextView sufix;
+    private View mProgressBar;
+    private TextView mProgressBarText;
+    private CacheCleanAdapter cacheCleanAdapter;
+    private List<CacheListItemModel> mCacheListItemModel = new ArrayList<>();
+    private LinearLayout bottom_lin;
+    private Button clearButton;
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
@@ -119,7 +101,7 @@ public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismi
         header = (RelativeLayout) bindView(R.id.header);
 
 
-        textCounter= (CounterView) bindView(R.id.textCounter);
+        textCounter = (CounterView) bindView(R.id.textCounter);
         sufix = (TextView) bindView(R.id.sufix);
 
         mProgressBar = bindView(R.id.progressBar);
@@ -140,7 +122,6 @@ public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismi
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +132,7 @@ public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismi
 
         StatusBarCompat.setStatusBarColor(this, getResources().getColor(R.color.title_bg), true);
         initView();
-             applyKitKatTranslucency();
+        applyKitKatTranslucency();
 
 //        StikkyHeaderBuilder.stickTo(mListView).setHeader(header)
 //                .minHeightHeaderPixel(0).build();
@@ -166,7 +147,7 @@ public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismi
         mListView.setOnItemClickListener(cacheCleanAdapter);
         mListView.setOnScrollListener(new QuickReturnListViewOnScrollListener(QuickReturnType.FOOTER, null, 0, bottom_lin, footerHeight));
         bindService(new Intent(mContext, CacheCleanService.class),
-                mServiceConnection,Context.BIND_AUTO_CREATE);
+                mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
@@ -218,7 +199,6 @@ public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismi
             textCounter.setIncrement(5f); // the amount the number increments at each time interval
             textCounter.setTimeInterval(50); // the time interval (ms) at which the text changes
             sufix.setText(mStorageSize.suffix);
-            //  textCounter.setSuffix(mStorageSize.suffix);
             textCounter.start();
         } else {
             header.setVisibility(View.GONE);
@@ -227,9 +207,7 @@ public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismi
 
         if (!mAlreadyScanned) {
             mAlreadyScanned = true;
-
         }
-
 
     }
 
@@ -294,9 +272,9 @@ public class CacheCleanActivity extends BaseSwipeBackActivity implements OnDismi
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
-            WindowManager.LayoutParams winParams = win.getAttributes();
-            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-            if (on) {
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
             winParams.flags |= bits;
         } else {
             winParams.flags &= ~bits;

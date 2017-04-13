@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster;
+package com.github.mummyding.ymsecurity.lib_clean.supercleanmaster;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

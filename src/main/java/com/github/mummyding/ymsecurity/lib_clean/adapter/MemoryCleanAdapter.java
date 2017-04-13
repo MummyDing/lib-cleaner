@@ -19,33 +19,30 @@ import java.util.List;
 
 public class MemoryCleanAdapter extends BaseAdapter {
 
-    public List<AppProcessInfo> mlistAppInfo;
-    LayoutInflater infater = null;
+    private List<AppProcessInfo> mListAppInfo;
+    private LayoutInflater mInflater = null;
     private Context mContext;
-    public static List<Integer> clearIds;
+    private List<Integer> mClearIds;
 
     public MemoryCleanAdapter(Context context, List<AppProcessInfo> apps) {
-        infater = LayoutInflater.from(context);
+        mInflater = LayoutInflater.from(context);
         mContext = context;
-        clearIds = new ArrayList<Integer>();
-        this.mlistAppInfo = apps;
+        mClearIds = new ArrayList<Integer>();
+        this.mListAppInfo = apps;
     }
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
-        return mlistAppInfo.size();
+        return mListAppInfo.size();
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
-        return mlistAppInfo.get(position);
+        return mListAppInfo.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
@@ -53,7 +50,7 @@ public class MemoryCleanAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = infater.inflate(R.layout.listview_memory_clean,
+            convertView = mInflater.inflate(R.layout.listview_memory_clean,
                     null);
             holder = new ViewHolder();
             holder.appIcon = (ImageView) convertView
@@ -97,17 +94,7 @@ public class MemoryCleanAdapter extends BaseAdapter {
         ImageView appIcon;
         TextView appName;
         TextView memory;
-        TextView tvProcessMemSize;
-        RelativeLayout cb_rl;
         RadioButton cb;
-
-        public RadioButton getCb() {
-            return cb;
-        }
-
-        public void setCb(RadioButton cb) {
-            this.cb = cb;
-        }
     }
 
 }
