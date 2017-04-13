@@ -121,7 +121,6 @@
         android:visibility="gone">
 
         <fr.castorflex.android.circularprogressbar.CircularProgressBar
-            android:id="@+id/progressBar2"
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:indeterminate="true"
