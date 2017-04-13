@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.adapter;
+package com.github.mummyding.ymsecurity.lib_clean.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.yzy.supercleanmaster.R;
 import com.github.mummyding.ymbase.model.AppProcessInfo;
 import com.github.mummyding.ymbase.util.StorageUtil;
+import com.github.mummyding.ymsecurity.lib_clean.R;
 
 import java.util.ArrayList;
 import java.util.List;

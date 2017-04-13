@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.model;
+package com.github.mummyding.ymsecurity.lib_clean.model;
 
 import android.graphics.drawable.Drawable;
 

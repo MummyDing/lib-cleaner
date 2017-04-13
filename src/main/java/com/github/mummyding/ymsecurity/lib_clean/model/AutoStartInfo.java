@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.yzy.supercleanmaster.model;
+package com.github.mummyding.ymsecurity.lib_clean.model;
 
 // TODO: Auto-generated Javadoc
 

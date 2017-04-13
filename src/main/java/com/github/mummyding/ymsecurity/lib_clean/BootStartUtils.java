@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.yzy.supercleanmaster;
+package com.github.mummyding.ymsecurity.lib_clean;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -24,7 +24,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 
 
-import com.yzy.supercleanmaster.model.AutoStartInfo;
+import com.github.mummyding.ymsecurity.lib_clean.model.AutoStartInfo;
 
 import java.util.ArrayList;
 import java.util.List;

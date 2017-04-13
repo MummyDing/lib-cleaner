@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.adapter;
+package com.github.mummyding.ymsecurity.lib_clean.adapter;
 
 import android.content.Context;
 import android.os.Handler;
@@ -9,9 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.fragment.AutoStartFragment;
-import com.yzy.supercleanmaster.model.AutoStartInfo;
+import com.github.mummyding.ymsecurity.lib_clean.R;
+import com.github.mummyding.ymsecurity.lib_clean.fragment.AutoStartFragment;
+import com.github.mummyding.ymsecurity.lib_clean.model.AutoStartInfo;
 import com.github.mummyding.ymbase.util.ShellUtils;
 import com.github.mummyding.ymbase.util.T;
 

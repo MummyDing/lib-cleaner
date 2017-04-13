@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.service;
+package com.github.mummyding.ymsecurity.lib_clean.service;
 
 import android.app.Service;
 import android.content.Context;
@@ -19,8 +19,8 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.model.CacheListItemModel;
+import com.github.mummyding.ymsecurity.lib_clean.R;
+import com.github.mummyding.ymsecurity.lib_clean.model.CacheListItemModel;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

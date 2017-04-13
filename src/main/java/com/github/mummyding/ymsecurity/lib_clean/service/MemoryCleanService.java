@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.service;
+package com.github.mummyding.ymsecurity.lib_clean.service;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -17,13 +17,14 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.github.mummyding.ymsecurity.lib_clean.R;
 import com.jaredrummler.android.processes.AndroidProcesses;
-import com.yzy.supercleanmaster.R;
 import com.github.mummyding.ymbase.model.AppProcessInfo;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MemoryCleanService extends Service {
 

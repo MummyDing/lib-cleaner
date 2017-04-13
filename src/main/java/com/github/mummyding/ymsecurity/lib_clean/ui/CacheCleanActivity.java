@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.ui;
+package com.github.mummyding.ymsecurity.lib_clean.ui;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -28,14 +28,14 @@ import android.widget.Toast;
 import com.github.mummyding.ymbase.QuickReturnType;
 import com.github.mummyding.ymbase.QuickReturnListViewOnScrollListener;
 import com.githang.statusbar.StatusBarCompat;
+import com.github.mummyding.ymsecurity.lib_clean.R;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
-import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.adapter.CacheCleanAdapter;
+import com.github.mummyding.ymsecurity.lib_clean.adapter.CacheCleanAdapter;
 import com.github.mummyding.ymbase.base.BaseSwipeBackActivity;
-import com.yzy.supercleanmaster.model.CacheListItemModel;
+import com.github.mummyding.ymsecurity.lib_clean.model.CacheListItemModel;
 import com.github.mummyding.ymbase.model.StorageSize;
-import com.yzy.supercleanmaster.service.CacheCleanService;
+import com.github.mummyding.ymsecurity.lib_clean.service.CacheCleanService;
 import com.github.mummyding.ymbase.util.StorageUtil;
 import com.github.mummyding.ymbase.util.SystemBarTintManager;
 import com.github.mummyding.ymbase.util.UIElementsHelper;

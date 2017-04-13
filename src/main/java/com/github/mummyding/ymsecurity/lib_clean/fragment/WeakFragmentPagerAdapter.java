@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.fragment;
+package com.github.mummyding.ymsecurity.lib_clean.fragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

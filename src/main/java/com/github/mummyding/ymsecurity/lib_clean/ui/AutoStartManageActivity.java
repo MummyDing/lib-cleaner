@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.ui;
+package com.github.mummyding.ymsecurity.lib_clean.ui;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -16,10 +16,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.yzy.supercleanmaster.R;
 import com.github.mummyding.ymbase.base.BaseSwipeBackActivity;
-import com.yzy.supercleanmaster.fragment.AutoStartFragment;
-import com.yzy.supercleanmaster.fragment.WeakFragmentPagerAdapter;
+import com.github.mummyding.ymsecurity.lib_clean.R;
+import com.github.mummyding.ymsecurity.lib_clean.fragment.AutoStartFragment;
+import com.github.mummyding.ymsecurity.lib_clean.fragment.WeakFragmentPagerAdapter;
 import com.github.mummyding.ymbase.util.SystemBarTintManager;
 import com.github.mummyding.ymbase.util.UIElementsHelper;
 import com.github.mummyding.ymbase.view.SlidingTab;

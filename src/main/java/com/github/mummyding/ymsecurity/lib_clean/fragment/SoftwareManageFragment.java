@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.fragment;
+package com.github.mummyding.ymsecurity.lib_clean.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -20,10 +20,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.yzy.supercleanmaster.R;
-import com.yzy.supercleanmaster.adapter.SoftwareManageAdapter;
+import com.github.mummyding.ymsecurity.lib_clean.R;
+import com.github.mummyding.ymsecurity.lib_clean.adapter.SoftwareManageAdapter;
 import com.github.mummyding.ymbase.base.BaseFragment;
-import com.yzy.supercleanmaster.model.AppInfo;
+import com.github.mummyding.ymsecurity.lib_clean.model.AppInfo;
 import com.github.mummyding.ymbase.util.StorageUtil;
 
 import java.lang.reflect.Method;

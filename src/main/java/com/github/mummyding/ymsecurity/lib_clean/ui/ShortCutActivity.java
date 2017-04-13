@@ -1,4 +1,4 @@
-package com.yzy.supercleanmaster.ui;
+package com.github.mummyding.ymsecurity.lib_clean.ui;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -17,10 +17,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.yzy.supercleanmaster.R;
 import com.github.mummyding.ymbase.base.BaseActivity;
 import com.github.mummyding.ymbase.model.AppProcessInfo;
-import com.yzy.supercleanmaster.service.MemoryCleanService;
+import com.github.mummyding.ymsecurity.lib_clean.R;
+import com.github.mummyding.ymsecurity.lib_clean.service.MemoryCleanService;
 import com.github.mummyding.ymbase.util.StorageUtil;
 import com.github.mummyding.ymbase.util.SystemBarTintManager;
 import com.github.mummyding.ymbase.util.T;
