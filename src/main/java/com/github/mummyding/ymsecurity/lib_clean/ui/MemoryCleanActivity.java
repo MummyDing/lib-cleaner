@@ -1,7 +1,6 @@
 package com.github.mummyding.ymsecurity.lib_clean.ui;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -41,7 +40,7 @@ import java.util.List;
 
 
 
-public class MemoryCleanActivity extends BaseSwipeBackActivity implements MemoryCleanService.OnPeocessActionListener {
+public class MemoryCleanActivity extends BaseSwipeBackActivity implements MemoryCleanService.OnProcessActionListener {
 
     ListView mListView;
 

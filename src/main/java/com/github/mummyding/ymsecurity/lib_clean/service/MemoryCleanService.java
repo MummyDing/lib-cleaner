@@ -33,17 +33,17 @@ public class MemoryCleanService extends Service {
     private static final String TAG = "CacheCleanService";
 
 
-    private OnPeocessActionListener mOnActionListener;
+    private OnProcessActionListener mOnActionListener;
     private boolean mIsScanning = false;
     private boolean mIsCleaning = false;
 
-    ActivityManager mActivityManager = null;
-    List<AppProcessInfo> list = null;
-    PackageManager packageManager = null;
-    Context mContext;
+    private ActivityManager mActivityManager = null;
+    private List<AppProcessInfo> mAppProcessList = null;
+    private PackageManager mPackageManager = null;
+    private Context mContext;
 
 
-    public static interface OnPeocessActionListener {
+    public static interface OnProcessActionListener {
         public void onScanStarted(Context context);
 
         public void onScanProgressUpdated(Context context, int current, int max);
@@ -77,12 +77,11 @@ public class MemoryCleanService extends Service {
         try {
             mActivityManager = (ActivityManager)
                     getSystemService(Context.ACTIVITY_SERVICE);
-            packageManager = getApplicationContext()
+            mPackageManager = getApplicationContext()
                     .getPackageManager();
         } catch (Exception e) {
 
         }
-
 
     }
 
@@ -92,7 +91,7 @@ public class MemoryCleanService extends Service {
 
         if (action != null) {
             if (action.equals(ACTION_CLEAN_AND_EXIT)) {
-                setOnActionListener(new OnPeocessActionListener() {
+                setOnActionListener(new OnProcessActionListener() {
                     @Override
                     public void onScanStarted(Context context) {
 
@@ -154,7 +153,7 @@ public class MemoryCleanService extends Service {
 
         @Override
         protected List<AppProcessInfo> doInBackground(Void... params) {
-            list = new ArrayList<AppProcessInfo>();
+            mAppProcessList = new ArrayList<AppProcessInfo>();
             ApplicationInfo appInfo = null;
             AppProcessInfo abAppProcessInfo = null;
 
@@ -168,7 +167,7 @@ public class MemoryCleanService extends Service {
                         appProcessInfo.processName, appProcessInfo.pid,
                         appProcessInfo.uid);
                 try {
-                    appInfo = packageManager.getApplicationInfo(appProcessInfo.processName, 0);
+                    appInfo = mPackageManager.getApplicationInfo(appProcessInfo.processName, 0);
 
 
                     if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
@@ -176,8 +175,8 @@ public class MemoryCleanService extends Service {
                     } else {
                         abAppProcessInfo.isSystem = false;
                     }
-                    Drawable icon = appInfo.loadIcon(packageManager);
-                    String appName = appInfo.loadLabel(packageManager)
+                    Drawable icon = appInfo.loadIcon(mPackageManager);
+                    String appName = appInfo.loadLabel(mPackageManager)
                             .toString();
                     abAppProcessInfo.icon = icon;
                     abAppProcessInfo.appName = appName;
@@ -189,7 +188,7 @@ public class MemoryCleanService extends Service {
                     if (appProcessInfo.processName.indexOf(":") != -1) {
                         appInfo = getApplicationInfo(appProcessInfo.processName.split(":")[0]);
                         if (appInfo != null) {
-                            Drawable icon = appInfo.loadIcon(packageManager);
+                            Drawable icon = appInfo.loadIcon(mPackageManager);
                             abAppProcessInfo.icon = icon;
                         } else {
                             abAppProcessInfo.icon = mContext.getResources().getDrawable(R.drawable.ic_launcher);
@@ -206,11 +205,11 @@ public class MemoryCleanService extends Service {
                 long memsize = mActivityManager.getProcessMemoryInfo(new int[]{appProcessInfo.pid})[0].getTotalPrivateDirty() * 1024;
                 abAppProcessInfo.memory = memsize;
 
-                list.add(abAppProcessInfo);
+                mAppProcessList.add(abAppProcessInfo);
             }
 
 
-            return list;
+            return mAppProcessList;
         }
 
         @Override
@@ -231,8 +230,6 @@ public class MemoryCleanService extends Service {
     }
 
     public void scanRunProcess() {
-        // mIsScanning = true;
-
         new TaskScan().execute();
     }
 
@@ -312,7 +309,7 @@ public class MemoryCleanService extends Service {
         new TaskClean().execute();
     }
 
-    public void setOnActionListener(OnPeocessActionListener listener) {
+    public void setOnActionListener(OnProcessActionListener listener) {
         mOnActionListener = listener;
     }
 
@@ -320,7 +317,7 @@ public class MemoryCleanService extends Service {
         if (processName == null) {
             return null;
         }
-        List<ApplicationInfo> appList = packageManager
+        List<ApplicationInfo> appList = mPackageManager
                 .getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
         for (ApplicationInfo appInfo : appList) {
             if (processName.equals(appInfo.processName)) {
